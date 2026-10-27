@@ -1,360 +1,154 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Portafolio personal de Benjamín Basurto, estudiante de Ingeniería de Software en la Universidad Técnica de Ambato.">
-  <meta name="theme-color" content="#080f1d">
-  <title>Benjamín Basurto | Ingeniería de Software</title>
-  <style>
-    :root {
-      color-scheme: dark;
-      --bg: #080f1d;
-      --surface: #0d1728;
-      --surface-2: #101e34;
-      --text: #f7f9ff;
-      --muted: #a3b1c9;
-      --subtle: #73849f;
-      --line: rgba(164, 190, 228, .14);
-      --blue: #629fff;
-      --blue-strong: #387af4;
-      --radius: 20px;
-      --page-width: 1100px;
-    }
-    *, *::before, *::after { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.65;
-    }
-    a { color: inherit; text-decoration: none; }
-    button, a { -webkit-tap-highlight-color: transparent; }
-    a:focus-visible { outline: 2px solid #87baff; outline-offset: 5px; border-radius: 5px; }
-    ::selection { background: #2c6bc1; color: white; }
-    .wrap { width: min(calc(100% - 48px), var(--page-width)); margin-inline: auto; }
-    .site-header {
-      position: relative;
-      z-index: 2;
-      border-bottom: 1px solid var(--line);
-      background: rgba(8, 15, 29, .88);
-    }
-    .nav {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      min-height: 78px;
-      gap: 26px;
-    }
-    .brand {
-      color: #e9f2ff;
-      font-weight: 800;
-      letter-spacing: -1px;
-      font-size: 23px;
-      flex: none;
-    }
-    .brand span { color: var(--blue); }
-    .nav-links { display: flex; align-items: center; gap: 32px; }
-    .nav-links a {
-      font-size: 13px;
-      color: #acbbd0;
-      font-weight: 550;
-      transition: color .2s ease;
-    }
-    .nav-links a:hover { color: white; }
-    .nav-github {
-      font-size: 13px;
-      color: #e0edff;
-      border: 1px solid rgba(166, 196, 238, .27);
-      background: rgba(119, 171, 255, .06);
-      padding: 9px 15px;
-      border-radius: 30px;
-      white-space: nowrap;
-      transition: border-color .2s, background .2s;
-    }
-    .nav-github:hover { background: rgba(119,171,255,.13); border-color: rgba(166,196,238,.55); }
-    .hero {
-      position: relative;
-      isolation: isolate;
-      overflow: hidden;
-      min-height: 640px;
-      display: flex;
-      align-items: center;
-      border-bottom: 1px solid var(--line);
-      background:
-        radial-gradient(ellipse 57% 64% at 91% 41%, rgba(25,82,165,.35) 0%, rgba(20,53,119,.16) 42%, transparent 80%),
-        linear-gradient(120deg, #080e1a 8%, #0c182c 58%, #101f3c 100%);
-    }
-    .hero::before, .hero::after {
-      content: "";
-      position: absolute;
-      z-index: -1;
-      border: 1px solid rgba(111, 170, 255, .13);
-      border-radius: 50%;
-      width: 780px;
-      height: 780px;
-      right: -480px;
-      top: -330px;
-      transform: rotate(-19deg);
-    }
-    .hero::after { width: 605px; height: 605px; right: -327px; top: -245px; border-color: rgba(156, 194, 255, .13); }
-    .hero-inner { position: relative; padding-block: 88px 110px; }
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 11px;
-      font-size: 11px;
-      font-weight: 650;
-      letter-spacing: .18em;
-      text-transform: uppercase;
-      color: #a9c6ef;
-    }
-    .eyebrow::before { content: ""; width: 23px; height: 2px; background: #78adff; }
-    h1 {
-      font-size: clamp(60px, 8.6vw, 112px);
-      line-height: .99;
-      font-weight: 760;
-      letter-spacing: -.075em;
-      margin: 28px 0 24px;
-    }
-    h1 span { display: block; color: #98c0fa; }
-    .role { font-size: clamp(18px, 2vw, 24px); color: #c8d4e6; letter-spacing: -.025em; margin: 0 0 19px; }
-    .intro { max-width: 530px; font-size: 16px; color: var(--muted); margin: 0 0 32px; }
-    .buttons { display: flex; flex-wrap: wrap; gap: 12px; }
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 45px;
-      padding: 11px 20px;
-      font-size: 13px;
-      font-weight: 650;
-      border: 1px solid transparent;
-      border-radius: 25px;
-      transition: transform .2s, background .2s, border-color .2s;
-    }
-    .button:hover { transform: translateY(-2px); }
-    .button.primary { background: #4289ff; color: white; box-shadow: 0 8px 28px rgba(42, 111, 237, .18); }
-    .button.primary:hover { background: #61a0ff; }
-    .button.secondary { border-color: rgba(174,199,237,.19); background: rgba(240,248,255,.035); color: #d5e2f5; }
-    .button.secondary:hover { border-color: rgba(174,199,237,.55); }
-    .hero-note { color: #8095b7; font-size: 12px; margin-top: 39px; letter-spacing: .02em; }
-    main section:not(.hero) { padding: 96px 0; }
-    .section-head { margin-bottom: 38px; max-width: 650px; }
-    .section-kicker { display: block; font-size: 11px; font-weight: 700; color: #84b4fa; letter-spacing: .17em; text-transform: uppercase; margin-bottom: 11px; }
-    h2 { margin: 0 0 14px; font-size: clamp(30px,4vw,46px); letter-spacing: -.055em; font-weight: 720; line-height: 1.15; }
-    .section-head p, .body-copy { color: var(--muted); font-size: 16px; margin: 0; }
-    .about { display: grid; grid-template-columns: 1.5fr 1fr; gap: 65px; align-items: start; }
-    .about p { margin: 0 0 19px; color: #b5c2d6; }
-    .about p strong { color: #e7f0ff; font-weight: 600; }
-    .info-panel { border-left: 1px solid var(--line); padding-left: 34px; display: grid; gap: 23px; }
-    .info-label { text-transform: uppercase; color: #7796c2; font-size: 11px; letter-spacing: .12em; display: block; margin-bottom: 5px; }
-    .info-value { color: #dce8fb; font-size: 15px; }
-    .divider { border-top: 1px solid var(--line); }
-    .skills-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .skill-box, .project-box {
-      border: 1px solid var(--line);
-      background: linear-gradient(155deg, rgba(255,255,255,.032), rgba(255,255,255,.008));
-      border-radius: var(--radius);
-      padding: 31px;
-    }
-    .skill-box h3 { font-size: 17px; font-weight: 650; letter-spacing: -.03em; margin: 0 0 9px; }
-    .skill-box p { color: var(--subtle); font-size: 13px; margin: 0 0 23px; }
-    .chips { display: flex; gap: 9px; flex-wrap: wrap; }
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      border: 1px solid rgba(145,176,224,.21);
-      background: rgba(17,38,70,.35);
-      color: #d4e4fa;
-      border-radius: 9px;
-      font-size: 12px;
-      font-weight: 550;
-      padding: 8px 11px;
-    }
-    .chip.highlight { border-color: rgba(113,169,252,.34); color: #bdd8ff; }
-    #proyectos { padding-top: 30px; }
-    .projects { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-    .project-box { display: flex; flex-direction: column; min-height: 250px; }
-    .project-number { color: #729ad5; font-size: 12px; letter-spacing: .07em; font-weight: 650; }
-    .project-box h3 { font-size: 23px; letter-spacing: -.04em; margin: 24px 0 6px; }
-    .project-box p { color: var(--muted); font-size: 14px; margin: 0 0 20px; }
-    .project-box a { margin-top: auto; width: fit-content; color: #9dc7ff; font-weight: 650; font-size: 13px; }
-    .project-box a:hover { text-decoration: underline; text-underline-offset: 4px; }
-    .contact {
-      background: linear-gradient(180deg, transparent 0%, rgba(21,49,88,.21) 100%);
-      border-top: 1px solid var(--line);
-    }
-    .contact .wrap { display: flex; align-items: center; justify-content: space-between; gap: 30px; }
-    .contact .section-head { margin-bottom: 0; }
-    .footer { border-top: 1px solid var(--line); padding: 26px 0; color: #8295b1; font-size: 12px; }
-    .footer .wrap { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-    .footer a { color: #b9d6ff; }
-    @media (max-width: 800px) {
-      .nav { min-height: 67px; }
-      .nav-links { gap: 17px; }
-      .nav-links a { font-size: 12px; }
-      .nav-github { display: none; }
-      .hero { min-height: 580px; }
-      .about { grid-template-columns: 1fr; gap: 24px; }
-      .info-panel { border-left: 0; border-top: 1px solid var(--line); padding: 22px 0 0; grid-template-columns: 1fr 1fr; }
-      .contact .wrap { align-items: start; flex-direction: column; }
-    }
-    @media (max-width: 580px) {
-      .wrap { width: min(calc(100% - 36px), var(--page-width)); }
-      .nav-links a:nth-child(2), .nav-links a:nth-child(3) { display: none; }
-      .nav-links { gap: 16px; }
-      .hero { min-height: 530px; }
-      .hero-inner { padding-block: 65px 83px; }
-      h1 { font-size: clamp(58px, 13.2vw, 80px); margin-top: 27px; }
-      .intro { font-size: 15px; }
-      .hero-note { margin-top: 28px; }
-      main section:not(.hero) { padding: 64px 0; }
-      .skills-layout, .projects { grid-template-columns: 1fr; }
-      #proyectos { padding-top: 0; }
-      .skill-box, .project-box { padding: 24px; }
-      .info-panel { grid-template-columns: 1fr; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
-    }
-  </style>
+  <meta name="theme-color" content="#080e19">
+  <meta name="description" content="Benjamín Basurto: estudiante de Ingeniería de Software en la Universidad Técnica de Ambato. Mis tecnologías, proyectos y portafolio personal.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Benjamín Basurto | Ingeniería de Software">
+  <meta property="og:description" content="Estudiante de Ingeniería de Software. Me gusta aprender, crear y convertir ideas en proyectos reales.">
+  <meta property="og:url" content="https://99benjaminb.github.io/">
+  <title>Benjamín Basurto — Ingeniería de Software</title>
+  <link rel="canonical" href="https://99benjaminb.github.io/">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <nav class="nav wrap" aria-label="Navegación principal">
-      <a class="brand" href="#inicio" aria-label="Inicio - Benjamín Basurto">BB<span>.</span></a>
+  <header class="site-nav">
+    <nav class="nav-content container" aria-label="Navegación principal">
+      <a class="brand" href="#inicio" aria-label="Benjamín Basurto, inicio">BB<span>.</span></a>
       <div class="nav-links">
         <a href="#inicio">Inicio</a>
         <a href="#sobre-mi">Sobre mí</a>
         <a href="#tecnologias">Tecnologías</a>
         <a href="#proyectos">Proyectos</a>
       </div>
-      <a class="nav-github" href="https://github.com/99benjaminb" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+      <a class="nav-external" href="https://github.com/99benjaminb" target="_blank" rel="noopener noreferrer">Mi GitHub <span class="arrow" aria-hidden="true">↗</span></a>
     </nav>
   </header>
 
   <main>
     <section class="hero" id="inicio" aria-labelledby="nombre">
-      <div class="hero-inner wrap">
-        <span class="eyebrow">Hola, soy</span>
-        <h1 id="nombre">Benjamín<span>Basurto.</span></h1>
-        <p class="role">Estudiante de Ingeniería de Software</p>
-        <p class="intro">Me gusta crear, aprender y explorar nuevas tecnologías. Me interesan el desarrollo web, la inteligencia artificial y los videojuegos. Busco convertir ideas en proyectos reales.</p>
-        <div class="buttons">
-          <a class="button primary" href="#proyectos">Ver mis proyectos&nbsp; ↗</a>
-          <a class="button secondary" href="https://github.com/99benjaminb" target="_blank" rel="noopener noreferrer">Mi GitHub&nbsp; ↗</a>
-        </div>
-        <div class="hero-note">Ambato, Ecuador &nbsp;·&nbsp; Aprender / Crear / Explorar</div>
-      </div>
-    </section>
-
-    <section id="sobre-mi">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-kicker">01 / Presentación</span>
-          <h2>Un poco sobre mí.</h2>
-        </div>
-        <div class="about">
-          <div>
-            <p>Soy <strong>Benjamín Basurto</strong> y estudio <strong>Ingeniería de Software en la Universidad Técnica de Ambato</strong>.</p>
-            <p>Disfruto descubrir cómo funciona la tecnología, experimentar con herramientas y llevar lo aprendido a proyectos prácticos. Todavía estoy explorando las diferentes áreas del desarrollo de software.</p>
-            <p>Me llaman especialmente la atención el <strong>desarrollo web</strong>, la <strong>inteligencia artificial</strong>, la innovación y la <strong>creación de videojuegos</strong>.</p>
+      <div class="container hero-grid">
+        <div class="hero-copy">
+          <span class="eyebrow">Hola, soy</span>
+          <h1 id="nombre">Benjamín<span>Basurto.</span></h1>
+          <p class="role">Estudiante de Ingeniería de Software</p>
+          <p class="hero-desc">Disfruto aprender nuevas tecnologías y convertir ideas en proyectos. Me interesa el desarrollo web, la inteligencia artificial y la creación de videojuegos.</p>
+          <div class="ctas">
+            <a href="#proyectos" class="btn btn-primary">Explorar mis proyectos <span aria-hidden="true">↗</span></a>
+            <a href="https://github.com/99benjaminb" class="btn btn-outline" target="_blank" rel="noopener noreferrer">Ver mi GitHub <span aria-hidden="true">↗</span></a>
           </div>
-          <aside class="info-panel" aria-label="Información personal">
-            <div><span class="info-label">Formación</span><span class="info-value">Ingeniería de Software</span></div>
-            <div><span class="info-label">Universidad</span><span class="info-value">Universidad Técnica de Ambato</span></div>
-            <div><span class="info-label">Ubicación</span><span class="info-value">Ecuador</span></div>
-            <div><span class="info-label">Lo que me mueve</span><span class="info-value">Crear cosas nuevas</span></div>
-          </aside>
+          <p class="hero-meta">Universidad Técnica de Ambato &nbsp;·&nbsp; Ecuador</p>
+        </div>
+        <div class="portrait-wrap">
+          <img class="portrait" src="https://avatars.githubusercontent.com/u/189275178?v=4" alt="Fotografía de perfil de Benjamín Basurto" width="340" height="378" fetchpriority="high">
+          <span class="portrait-caption">Aprendiendo y creando, paso a paso.</span>
         </div>
       </div>
     </section>
 
-    <div class="divider wrap" role="presentation"></div>
-
-    <section id="tecnologias">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-kicker">02 / Mi stack</span>
-          <h2>Tecnologías y herramientas.</h2>
-          <p>Las que ya utilizo y aquellas que estoy aprendiendo mientras construyo nuevos proyectos.</p>
+    <section class="section" id="sobre-mi" aria-labelledby="sobre-mi-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">01 / Sobre mí</span>
+          <h2 id="sobre-mi-title">Un poco sobre mí.</h2>
         </div>
-        <div class="skills-layout">
-          <article class="skill-box">
-            <h3>Con las que trabajo</h3>
-            <p>Lenguajes, bases de datos y herramientas que manejo.</p>
-            <div class="chips">
-              <span class="chip highlight">Java</span>
-              <span class="chip highlight">Python</span>
-              <span class="chip highlight">MySQL</span>
-              <span class="chip">Git</span>
-              <span class="chip">GitHub</span>
-              <span class="chip">VS Code</span>
-              <span class="chip">NetBeans</span>
+        <div class="about-grid">
+          <div>
+            <p class="about-text">Estudio <strong>Ingeniería de Software en la Universidad Técnica de Ambato</strong>. Me gusta entender cómo funcionan las aplicaciones y experimentar con nuevas herramientas para construir mis propios proyectos.</p>
+            <p class="about-text">Estoy explorando diferentes áreas del desarrollo. Lo que más me motiva es <strong>crear cosas nuevas</strong>, aprender de cada desafío y mejorar con la práctica.</p>
+          </div>
+          <dl class="fact-list">
+            <div class="fact">
+              <dt>Formación</dt>
+              <dd>Ingeniería de Software</dd>
+            </div>
+            <div class="fact">
+              <dt>Universidad</dt>
+              <dd>Universidad Técnica de Ambato</dd>
+            </div>
+            <div class="fact">
+              <dt>Intereses</dt>
+              <dd>Desarrollo web, IA y videojuegos</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tecnologias" aria-labelledby="tecnologias-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">02 / Habilidades</span>
+          <h2 id="tecnologias-title">Tecnologías que utilizo.</h2>
+          <p class="section-intro">Estas son algunas de las herramientas con las que trabajo y otras que estoy incorporando a mi aprendizaje.</p>
+        </div>
+        <div class="skills-grid">
+          <article class="panel">
+            <h3>Trabajo con</h3>
+            <p>Lenguajes, base de datos y herramientas de desarrollo.</p>
+            <div class="tags" aria-label="Tecnologías que manejo">
+              <span class="tag primary">Java</span>
+              <span class="tag primary">Python</span>
+              <span class="tag primary">MySQL</span>
+              <span class="tag">Git</span>
+              <span class="tag">GitHub</span>
+              <span class="tag">VS Code</span>
+              <span class="tag">NetBeans</span>
             </div>
           </article>
-          <article class="skill-box">
-            <h3>Actualmente aprendiendo</h3>
-            <p>Tecnologías con las que estoy ampliando mis habilidades.</p>
-            <div class="chips">
-              <span class="chip">JavaScript</span>
-              <span class="chip">HTML</span>
-              <span class="chip">CSS</span>
-              <span class="chip">PHP</span>
-              <span class="chip">SQL</span>
-              <span class="chip">Bootstrap</span>
-              <span class="chip">jQuery</span>
-              <span class="chip">React</span>
+          <article class="panel">
+            <h3>Estoy aprendiendo</h3>
+            <p>Tecnologías con las que amplío mis conocimientos.</p>
+            <div class="tags" aria-label="Tecnologías en aprendizaje">
+              <span class="tag">JavaScript</span>
+              <span class="tag">HTML</span>
+              <span class="tag">CSS</span>
+              <span class="tag">React</span>
+              <span class="tag">PHP</span>
+              <span class="tag">SQL</span>
+              <span class="tag">Bootstrap</span>
+              <span class="tag">jQuery</span>
             </div>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="proyectos">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-kicker">03 / Mi trabajo</span>
-          <h2>Proyectos y práctica.</h2>
-          <p>Mis repositorios reflejan el aprendizaje, la colaboración y las ideas que voy desarrollando.</p>
+    <section class="section" id="proyectos" aria-labelledby="proyectos-title">
+      <div class="container">
+        <div class="section-heading">
+          <span class="section-label">03 / Proyectos</span>
+          <h2 id="proyectos-title">Lo que voy construyendo.</h2>
+          <p class="section-intro">Cada proyecto es una oportunidad para llevar a la práctica lo que aprendo.</p>
         </div>
         <div class="projects">
-          <article class="project-box">
-            <span class="project-number">PROYECTO COLABORATIVO</span>
+          <article class="panel project">
+            <span class="project-type">Proyecto universitario · En equipo</span>
             <h3>EduMonitor AI</h3>
-            <p>Proyecto académico en equipo relacionado con una plataforma de software educativo.</p>
-            <a href="https://github.com/GabrielRojas20/-EduMonitor-AI" target="_blank" rel="noopener noreferrer">Ver repositorio ↗</a>
+            <p>Proyecto académico colaborativo relacionado con el desarrollo de una plataforma educativa.</p>
+            <a href="https://github.com/GabrielRojas20/-EduMonitor-AI" target="_blank" rel="noopener noreferrer">Explorar repositorio <span aria-hidden="true">↗</span></a>
           </article>
-          <article class="project-box">
-            <span class="project-number">REPOSITORIOS PERSONALES</span>
-            <h3>Aprendiendo en código</h3>
-            <p>Ejercicios, prácticas universitarias y proyectos propios publicados en GitHub.</p>
-            <a href="https://github.com/99benjaminb?tab=repositories" target="_blank" rel="noopener noreferrer">Explorar repositorios ↗</a>
+          <article class="panel project">
+            <span class="project-type">Proyecto personal · HTML y CSS</span>
+            <h3>Mi portafolio web</h3>
+            <p>Esta página es parte de mi aprendizaje en desarrollo web: una presentación sencilla, adaptable y construida desde código.</p>
+            <a href="https://github.com/99benjaminb/99benjaminb.github.io" target="_blank" rel="noopener noreferrer">Ver el código <span aria-hidden="true">↗</span></a>
           </article>
         </div>
-      </div>
-    </section>
-
-    <section id="contacto" class="contact">
-      <div class="wrap">
-        <div class="section-head">
-          <span class="section-kicker">04 / Sigamos creando</span>
-          <h2>¿Hablamos de tecnología?</h2>
-          <p>Puedes encontrar mis proyectos y mi actividad de desarrollo en GitHub.</p>
-        </div>
-        <a class="button primary" href="https://github.com/99benjaminb" target="_blank" rel="noopener noreferrer">Visitar mi GitHub ↗</a>
       </div>
     </section>
   </main>
 
   <footer class="footer">
-    <div class="wrap">
-      <span>© 2026 Benjamín Basurto. Creado con HTML y CSS.</span>
-      <a href="#inicio">Volver al inicio ↑</a>
+    <div class="container footer-inner">
+      <span>© 2026 Benjamín Basurto · Hecho con HTML y CSS.</span>
+      <div class="footer-links">
+        <a href="https://github.com/99benjaminb" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+        <a href="#inicio">Volver arriba ↑</a>
+      </div>
     </div>
   </footer>
 </body>
